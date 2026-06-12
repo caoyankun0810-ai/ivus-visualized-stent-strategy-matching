@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IVUS-Guided Stent Strategy Planning</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="back-btn" aria-label="Back">←</button>
+        <span class="case-review">Case Review Interface</span>
+      </div>
+
+      <div class="topbar-title">IVUS-Guided Stent Strategy Planning</div>
+
+      <div class="topbar-meta">
+        <span>Case ID: <b id="caseId">XXXX</b></span>
+        <span>|</span>
+        <span>Target vessel: <b id="vessel">LAD</b></span>
+        <span>|</span>
+        <span>Pullback length: <b id="pullbackLength">62 mm</b></span>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="panel panel-blue image-panel">
+        <div class="panel-header">
+          <span class="header-icon">▣</span>
+          <h2>IVUS Image Review</h2>
+        </div>
+
+        <div class="panel-body">
+          <div class="sub-title-row">
+            <span>Current frame</span>
+
+           <label class="folder-load-btn">
+  Load folder
+  <input
+    id="ivusFolderInput"
+    type="file"
+    accept="image/*"
+    webkitdirectory
+    directory
+    multiple
+    hidden
+  />
+</label>
+            <button id="runSegmentationBtn" class="segmentation-btn" type="button">
+              Segmentation
+            </button>
+            <button id="runAllSegmentationBtn" class="segmentation-btn segment-all-btn" type="button">
+              Segment all
+            </button>
+          </div>
+
+          <div class="ivus-main-wrap" id="ivusMainWrap">
+            <img id="mainFrameImage" class="ivus-frame-img" alt="Current IVUS frame" />
+
+            <svg class="ivus-overlay" viewBox="0 0 500 500" aria-hidden="true">
+              <path id="eemOverlay" class="contour contour-eem" d="" />
+              <path id="lumenOverlay" class="contour contour-lumen" d="" />
+              <line x1="410" y1="438" x2="470" y2="438" stroke="#fff" stroke-width="4" />
+              <text x="438" y="426" fill="#fff" font-size="17" text-anchor="middle">1 mm</text>
+            </svg>
+          </div>
+
+          <div class="legend-row">
+            <span><i class="legend-line lumen"></i>Lumen</span>
+            <span><i class="legend-line eem"></i>EEM</span>
+            <span class="phenotype">Phenotype label: <b>Calcified plaque</b></span>
+          </div>
+
+          <div class="thumbnail-row">
+            <div class="thumb-card" data-thumb="distal">
+              <span>Distal reference</span>
+              <div class="thumb-ivus">
+                <img id="thumbDistal" class="thumb-img" alt="Distal reference frame" />
+              </div>
+              <small id="thumbDistalText">Frame: -</small>
+            </div>
+
+            <div class="thumb-card active" data-thumb="mla">
+              <span>MLA</span>
+              <div class="thumb-ivus">
+                <img id="thumbMLA" class="thumb-img" alt="MLA frame" />
+              </div>
+              <small id="thumbMLAText">Frame: -</small>
+            </div>
+
+            <div class="thumb-card" data-thumb="lesion">
+              <span>Lesion segment</span>
+              <div class="thumb-ivus">
+                <img id="thumbLesion" class="thumb-img" alt="Lesion segment frame" />
+              </div>
+              <small id="thumbLesionText">Frame: -</small>
+            </div>
+
+            <div class="thumb-card" data-thumb="proximal">
+              <span>Proximal reference</span>
+              <div class="thumb-ivus">
+                <img id="thumbProximal" class="thumb-img" alt="Proximal reference frame" />
+              </div>
+              <small id="thumbProximalText">Frame: -</small>
+            </div>
+          </div>
+
+          <div class="frame-control">
+            <span>Frame<br /><b>1</b></span>
+            <button type="button" aria-label="Previous 10 frames">◀◀</button>
+            <button type="button" aria-label="Previous frame">◀</button>
+            <input id="frameSlider" type="range" min="1" max="1" value="1" />
+            <button type="button" aria-label="Next frame">▶</button>
+            <button type="button" aria-label="Next 10 frames">▶▶</button>
+            <span><b id="totalFrameText">-</b></span>
+          </div>
+
+          <div class="position-text">
+            Current position: <b id="currentPosition">Load an IVUS folder</b>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel-purple profile-panel">
+  <div class="panel-header">
+    <span class="header-icon">▥</span>
+    <h2>Quantitative Lesion Profiling</h2>
+    <button id="updateProfileBtn" class="small-action-btn purple-btn" type="button">
+      Update profile
+    </button>
+  </div>
+
+  <div class="panel-body profile-body">
+    <div class="profile-chart-wrap">
+      <svg
+        id="quantProfileSvg"
+        class="profile-svg"
+        viewBox="0 0 820 560"
+        role="img"
+        aria-label="Quantitative lesion profile"
+      >
+        <defs>
+          <linearGradient id="blueFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3383e8" stop-opacity="0.22" />
+            <stop offset="100%" stop-color="#3383e8" stop-opacity="0.02" />
+          </linearGradient>
+
+          <linearGradient id="orangeFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f36b2a" stop-opacity="0.22" />
+            <stop offset="100%" stop-color="#f36b2a" stop-opacity="0.02" />
+          </linearGradient>
+        </defs>
+
+        <!-- Marker labels -->
+        <g class="marker-labels">
+          <text id="profileProximalLabel1" x="145" y="34">Proximal</text>
+          <text id="profileProximalLabel2" x="145" y="52">reference</text>
+
+          <text id="profileLesionStartLabel1" x="312" y="34" class="orange">Lesion</text>
+          <text id="profileLesionStartLabel2" x="312" y="52" class="orange">start</text>
+
+          <text id="profileMlaLabel" x="430" y="34" class="red">MLA</text>
+
+          <text id="profileLesionEndLabel1" x="550" y="34" class="orange">Lesion</text>
+          <text id="profileLesionEndLabel2" x="550" y="52" class="orange">end</text>
+
+          <text id="profileDistalLabel1" x="705" y="34">Distal</text>
+          <text id="profileDistalLabel2" x="705" y="52">reference</text>
+        </g>
+
+        <!-- Static marker lines -->
+        <g class="markers">
+          <line id="profileProximalLine" x1="145" y1="70" x2="145" y2="482" class="dash blue" />
+          <line id="profileLesionStartLine" x1="312" y1="70" x2="312" y2="482" class="dash orange" />
+          <line id="profileMlaLine" x1="430" y1="70" x2="430" y2="482" class="dash red" />
+          <line id="profileLesionEndLine" x1="550" y1="70" x2="550" y2="482" class="dash orange" />
+          <line id="profileDistalLine" x1="705" y1="70" x2="705" y2="482" class="dash blue" />
+        </g>
+
+        <!-- Grid lines -->
+        <g class="gridlines">
+          <line x1="70" y1="110" x2="750" y2="110" />
+          <line x1="70" y1="175" x2="750" y2="175" />
+          <line x1="70" y1="240" x2="750" y2="240" />
+          <line x1="70" y1="305" x2="750" y2="305" />
+          <line x1="70" y1="370" x2="750" y2="370" />
+          <line x1="70" y1="435" x2="750" y2="435" />
+        </g>
+
+        <!-- Axis labels -->
+        <g class="axis-labels">
+          <text x="8" y="110" class="blue">Lumen Area</text>
+          <text x="8" y="130" class="blue">(mm²)</text>
+
+          <text x="8" y="240" class="blue">Reference</text>
+          <text x="8" y="260" class="blue">Diameter</text>
+          <text x="8" y="280" class="blue">(mm)</text>
+
+          <text x="8" y="360" class="orange">Plaque</text>
+          <text x="8" y="380" class="orange">Burden</text>
+          <text x="8" y="400" class="orange">(%)</text>
+
+          <text x="8" y="468" class="purple">Phenotype</text>
+          <text x="8" y="488" class="purple">Risk</text>
+        </g>
+
+        <!-- Dynamic profile curves: app.js will update these paths -->
+        <g id="dynamicProfileLayer">
+          <path
+            id="lumenAreaFill"
+            d="M70,170 C110,150 150,145 195,150 C240,160 270,160 312,148 C358,137 393,174 430,188 C470,202 510,175 550,150 C605,134 653,140 705,150 C735,156 745,158 750,160 L750,198 L70,198 Z"
+            fill="url(#blueFill)"
+          />
+
+          <path
+            id="lumenAreaPath"
+            class="curve blue"
+            d="M70,170 C110,150 150,145 195,150 C240,160 270,160 312,148 C358,137 393,174 430,188 C470,202 510,175 550,150 C605,134 653,140 705,150 C735,156 745,158 750,160"
+          />
+
+          <circle id="mlaMarkerDot" cx="430" cy="188" r="7" fill="#eb2a2a" />
+
+          <path
+            id="vesselDiameterPath"
+            class="curve blue thin"
+            d="M70,270 C140,258 190,260 250,275 C318,290 388,281 430,280 C494,278 552,276 618,268 C670,257 715,266 750,272"
+          />
+
+          <path
+            id="plaqueBurdenFill"
+            d="M70,420 C140,395 180,358 245,338 C300,318 360,335 430,302 C497,268 555,278 615,330 C665,372 710,430 750,414 L750,442 L70,442 Z"
+            fill="url(#orangeFill)"
+          />
+
+          <path
+            id="plaqueBurdenPath"
+            class="curve orange"
+            d="M70,420 C140,395 180,358 245,338 C300,318 360,335 430,302 C497,268 555,278 615,330 C665,372 710,430 750,414"
+          />
+        </g>
+
+        <!-- Risk phenotype bar -->
+        <path id="phenotypeRiskPath" class="curve purple risk" d="M70,482 L285,482 L285,445 L590,445 L590,482 L750,482" />
+        <text id="phenotypeText" x="572" y="438" class="purple small">Calcified plaque</text>
+
+        <text x="82" y="433" class="red small risk-level-label">High</text>
+        <text x="82" y="465" class="orange small risk-level-label">Moderate</text>
+        <text x="82" y="493" class="green small risk-level-label">Low</text>
+
+        <text x="395" y="540" class="xlabel">Pullback Position (mm)</text>
+      </svg>
+    </div>
+
+    <aside class="summary-card">
+      <h3>Quantitative Summary</h3>
+
+      <div class="metric">
+        <span class="metric-icon blue-dot">●</span>
+        <p>MLA:<b id="metricMLA">4.8 mm²</b></p>
+      </div>
+
+      <div class="metric">
+        <span class="metric-icon blue-dot">⊘</span>
+        <p>Reference diameter:<b id="metricRefDiameter">3.02 mm</b></p>
+      </div>
+
+      <div class="metric">
+        <span class="metric-icon orange-dot">▰</span>
+        <p>Lesion length:<b id="metricLesionLength">28.6 mm</b></p>
+      </div>
+
+      <div class="metric">
+        <span class="metric-icon orange-dot">◔</span>
+        <p>Max plaque burden:<b id="metricMaxPB">68%</b></p>
+      </div>
+
+      <div class="metric">
+        <span class="metric-icon purple-dot">⬟</span>
+        <p>Phenotype risk:<b id="metricRisk" class="purple-text">Moderate</b></p>
+      </div>
+
+      <div class="metric">
+        <span class="metric-icon green-dot">✓</span>
+        <p>Landing-zone safety:<b id="metricLandingSafety" class="green-text">Acceptable</b></p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+      <section class="panel panel-orange strategy-panel">
+        <div class="panel-header strategy-header">
+  <div class="strategy-header-left">
+    <span class="header-icon">◎</span>
+    <h2>Recommended Strategy</h2>
+  </div>
+
+  <button id="generateStrategyBtn" class="generate-strategy-btn" type="button">
+    Generate strategy
+  </button>
+</div>
+
+        <div class="panel-body">
+          <div class="recommend-card">
+            <div>
+              <h3>Recommended: <b id="recommendedStent">3.0 × 28 mm</b></h3>
+              <p>
+                Matching score: <b id="matchingScore" class="green-text">0.87</b>
+                <span>|</span>
+                Risk level: <b id="riskLevel" class="orange-text">Moderate</b>
+              </p>
+            </div>
+            <span class="check">✓</span>
+          </div>
+
+          <h4>Alternative candidates</h4>
+
+          <div class="candidate-list">
+            <div class="candidate">
+              <span id="candidate1">2.75 × 28 mm</span>
+              <small>Score: <b id="candidateScore1">0.71</b></small>
+              <i style="--w:71%"></i>
+            </div>
+
+            <div class="candidate">
+              <span id="candidate2">3.0 × 33 mm</span>
+              <small>Score: <b id="candidateScore2">0.68</b></small>
+              <i style="--w:68%"></i>
+            </div>
+
+            <div class="candidate">
+              <span id="candidate3">3.25 × 28 mm</span>
+              <small>Score: <b id="candidateScore3">0.62</b></small>
+              <i style="--w:62%"></i>
+            </div>
+          </div>
+
+          <div class="evidence-card">
+            <h3>Evidence</h3>
+            <ul id="evidenceList">
+              <li>Reference diameter supports 3.0 mm stent size</li>
+              <li>Lesion length is consistent with 28 mm coverage</li>
+              <li>Landing zones show lower plaque burden</li>
+              <li>Calcified plaque indicates moderate procedural risk</li>
+              <li>Strategy is anatomically compatible with the lesion profile</li>
+            </ul>
+          </div>
+
+          <div class="risk-card">
+            <h3>Risk Note</h3>
+            <ul id="riskNoteList">
+              <li>Calcified plaque present</li>
+              <li>Careful lesion preparation may be required</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel-green coverage-panel">
+        <div class="panel-header">
+          <span class="header-icon">▰</span>
+          <h2>Coverage Map and Explanation</h2>
+        </div>
+
+        <div class="coverage-body">
+          <div class="vessel-wrap">
+            <svg class="vessel-svg" viewBox="0 0 980 210" role="img" aria-label="Stent coverage map">
+              <defs>
+                <linearGradient id="vesselGrad" x1="0" x2="1">
+                  <stop offset="0%" stop-color="#d66058" />
+                  <stop offset="18%" stop-color="#f0b3a4" />
+                  <stop offset="50%" stop-color="#e48778" />
+                  <stop offset="82%" stop-color="#f0b3a4" />
+                  <stop offset="100%" stop-color="#d66058" />
+                </linearGradient>
+
+                <pattern id="mesh" width="22" height="18" patternUnits="userSpaceOnUse">
+                  <path
+                    d="M0,18 L22,0 M-11,0 L11,18 M11,18 L33,0"
+                    stroke="#6d8b8a"
+                    stroke-width="2"
+                    fill="none"
+                  />
+                </pattern>
+              </defs>
+
+              <text id="mapProximalText1" x="130" y="28" class="map-label blue">Proximal</text>
+              <text id="mapProximalText2" x="130" y="46" class="map-label blue">reference</text>
+
+              <text id="mapLesionStartText1" x="300" y="28" class="map-label orange">Lesion</text>
+              <text id="mapLesionStartText2" x="300" y="46" class="map-label orange">start</text>
+
+              <text id="mapLesionEndText1" x="780" y="28" class="map-label orange">Lesion</text>
+              <text id="mapLesionEndText2" x="780" y="46" class="map-label orange">end</text>
+
+              <text id="mapDistalText1" x="900" y="28" class="map-label blue">Distal</text>
+              <text id="mapDistalText2" x="900" y="46" class="map-label blue">reference</text>
+
+              <line id="mapProximalLine" x1="130" y1="54" x2="130" y2="164" class="dash blue" />
+              <line id="mapLesionStartLine" x1="300" y1="54" x2="300" y2="164" class="dash orange" />
+              <line id="mapLesionEndLine" x1="780" y1="54" x2="780" y2="164" class="dash orange" />
+              <line id="mapDistalLine" x1="900" y1="54" x2="900" y2="164" class="dash blue" />
+
+              <path
+                d="M20,96 C150,90 220,85 310,82 C450,78 650,82 790,86 C870,88 930,88 960,94 L960,132 C900,138 820,140 750,136 C600,130 435,135 300,130 C190,126 95,132 20,126 Z"
+                fill="url(#vesselGrad)"
+                opacity="0.94"
+              />
+
+              <rect
+  id="mapLesionBand"
+  x="300"
+  y="78"
+  width="480"
+  height="67"
+  rx="28"
+  fill="#f6b9aa"
+  opacity="0.55"
+/>
+
+              <rect id="mapStentMesh" x="320" y="80" width="440" height="65" rx="18" fill="url(#mesh)" opacity="0.95" />
+              <rect id="mapStentOutline" x="320" y="80" width="440" height="65" rx="18" fill="none" stroke="#61817f" stroke-width="3" />
+
+              <line id="mapStentLengthLine" x1="320" y1="180" x2="760" y2="180" stroke="#111827" stroke-width="3" />
+              <path id="mapStentLengthArrow" d="M320,180 l18,-8 v16 z M760,180 l-18,-8 v16 z" fill="#111827" />
+              <text id="coverageLengthText" x="540" y="204" text-anchor="middle" font-size="26" font-weight="800">28 mm</text>
+            </svg>
+          </div>
+
+          <div class="explain-box" id="coverageExplanation">
+            The system recommends a <b>3.0 × 28 mm</b> stent. The recommended diameter is supported by the IVUS-derived reference vessel diameter. The recommended length covers the lesion extent with sufficient safety margins. The proposed landing zones show relatively lower plaque burden and acceptable phenotype-associated risk.
+          </div>
+
+          <div class="interpret-box">
+            <h3>Interpretation Summary</h3>
+            <div><span>✓</span>Interpretable</div>
+            <div><span>▥</span>Quantitative</div>
+            <div><span>●</span>Clinician-centered</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
