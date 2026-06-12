@@ -16,6 +16,7 @@ The demo focuses on visualizing how IVUS-derived anatomical evidence supports st
 ├── requirements.txt
 └── .gitignore
 ```
+![Demo](docs/assets/demo.gif)
 
 ## Option 1: Static web demo
 
