@@ -1,0 +1,751 @@
+{
+  "case_id": "demo_case_001",
+  "target_vessel": "LAD",
+  "pullback_frames": 995,
+  "target": {
+    "mla_area": 4.8,
+    "reference_diameter": 3.02,
+    "lesion_length_mm": 11.7,
+    "max_plaque_burden": 68.0,
+    "phenotype_risk": "Moderate",
+    "landing_zone_safety": "Acceptable",
+    "lesion_start_mm": 30,
+    "mla_mm": 50,
+    "lesion_end_mm": 74,
+    "proximal_reference_mm": 12,
+    "distal_reference_mm": 92
+  },
+  "strategy": {
+    "recommended_diameter_mm": 3.25,
+    "recommended_length_mm": 28,
+    "matching_score": 0.86,
+    "risk_level": "Moderate",
+    "required_coverage_mm": 23.7,
+    "candidates": [
+      {
+        "diameter": 3.25,
+        "length": 28,
+        "score": 0.86
+      },
+      {
+        "diameter": 3.0,
+        "length": 28,
+        "score": 0.82
+      },
+      {
+        "diameter": 3.25,
+        "length": 33,
+        "score": 0.78
+      }
+    ]
+  },
+  "profile": [
+    {
+      "x_mm": 0,
+      "lumen_area": 14.5,
+      "eem_area": 23.68,
+      "plaque_burden": 25.03,
+      "reference_diameter": 3.4
+    },
+    {
+      "x_mm": 1,
+      "lumen_area": 14.74,
+      "eem_area": 23.81,
+      "plaque_burden": 26.63,
+      "reference_diameter": 3.42
+    },
+    {
+      "x_mm": 2,
+      "lumen_area": 14.98,
+      "eem_area": 23.91,
+      "plaque_burden": 28.17,
+      "reference_diameter": 3.44
+    },
+    {
+      "x_mm": 3,
+      "lumen_area": 15.21,
+      "eem_area": 23.97,
+      "plaque_burden": 29.58,
+      "reference_diameter": 3.46
+    },
+    {
+      "x_mm": 4,
+      "lumen_area": 15.42,
+      "eem_area": 23.98,
+      "plaque_burden": 30.82,
+      "reference_diameter": 3.48
+    },
+    {
+      "x_mm": 5,
+      "lumen_area": 15.6,
+      "eem_area": 23.96,
+      "plaque_burden": 31.84,
+      "reference_diameter": 3.49
+    },
+    {
+      "x_mm": 6,
+      "lumen_area": 15.74,
+      "eem_area": 23.89,
+      "plaque_burden": 32.59,
+      "reference_diameter": 3.51
+    },
+    {
+      "x_mm": 7,
+      "lumen_area": 15.86,
+      "eem_area": 23.78,
+      "plaque_burden": 33.06,
+      "reference_diameter": 3.53
+    },
+    {
+      "x_mm": 8,
+      "lumen_area": 15.93,
+      "eem_area": 23.64,
+      "plaque_burden": 33.22,
+      "reference_diameter": 3.54
+    },
+    {
+      "x_mm": 9,
+      "lumen_area": 15.96,
+      "eem_area": 23.45,
+      "plaque_burden": 33.08,
+      "reference_diameter": 3.55
+    },
+    {
+      "x_mm": 10,
+      "lumen_area": 15.94,
+      "eem_area": 23.23,
+      "plaque_burden": 32.64,
+      "reference_diameter": 3.56
+    },
+    {
+      "x_mm": 11,
+      "lumen_area": 15.88,
+      "eem_area": 22.99,
+      "plaque_burden": 31.94,
+      "reference_diameter": 3.57
+    },
+    {
+      "x_mm": 12,
+      "lumen_area": 15.78,
+      "eem_area": 22.71,
+      "plaque_burden": 31.01,
+      "reference_diameter": 3.58
+    },
+    {
+      "x_mm": 13,
+      "lumen_area": 15.64,
+      "eem_area": 22.41,
+      "plaque_burden": 29.9,
+      "reference_diameter": 3.58
+    },
+    {
+      "x_mm": 14,
+      "lumen_area": 15.45,
+      "eem_area": 22.08,
+      "plaque_burden": 28.67,
+      "reference_diameter": 3.58
+    },
+    {
+      "x_mm": 15,
+      "lumen_area": 15.23,
+      "eem_area": 21.74,
+      "plaque_burden": 27.39,
+      "reference_diameter": 3.58
+    },
+    {
+      "x_mm": 16,
+      "lumen_area": 14.97,
+      "eem_area": 21.39,
+      "plaque_burden": 26.15,
+      "reference_diameter": 3.57
+    },
+    {
+      "x_mm": 17,
+      "lumen_area": 14.68,
+      "eem_area": 21.02,
+      "plaque_burden": 25.01,
+      "reference_diameter": 3.56
+    },
+    {
+      "x_mm": 18,
+      "lumen_area": 14.36,
+      "eem_area": 20.64,
+      "plaque_burden": 24.07,
+      "reference_diameter": 3.55
+    },
+    {
+      "x_mm": 19,
+      "lumen_area": 14.01,
+      "eem_area": 20.26,
+      "plaque_burden": 23.41,
+      "reference_diameter": 3.53
+    },
+    {
+      "x_mm": 20,
+      "lumen_area": 13.65,
+      "eem_area": 19.85,
+      "plaque_burden": 23.12,
+      "reference_diameter": 3.51
+    },
+    {
+      "x_mm": 21,
+      "lumen_area": 13.26,
+      "eem_area": 19.44,
+      "plaque_burden": 23.27,
+      "reference_diameter": 3.48
+    },
+    {
+      "x_mm": 22,
+      "lumen_area": 12.85,
+      "eem_area": 19.0,
+      "plaque_burden": 23.94,
+      "reference_diameter": 3.44
+    },
+    {
+      "x_mm": 23,
+      "lumen_area": 12.43,
+      "eem_area": 18.55,
+      "plaque_burden": 25.19,
+      "reference_diameter": 3.4
+    },
+    {
+      "x_mm": 24,
+      "lumen_area": 12.0,
+      "eem_area": 18.07,
+      "plaque_burden": 27.06,
+      "reference_diameter": 3.35
+    },
+    {
+      "x_mm": 25,
+      "lumen_area": 11.55,
+      "eem_area": 17.57,
+      "plaque_burden": 29.58,
+      "reference_diameter": 3.3
+    },
+    {
+      "x_mm": 26,
+      "lumen_area": 11.09,
+      "eem_area": 17.04,
+      "plaque_burden": 32.72,
+      "reference_diameter": 3.23
+    },
+    {
+      "x_mm": 27,
+      "lumen_area": 10.63,
+      "eem_area": 16.49,
+      "plaque_burden": 36.46,
+      "reference_diameter": 3.16
+    },
+    {
+      "x_mm": 28,
+      "lumen_area": 10.17,
+      "eem_area": 15.93,
+      "plaque_burden": 40.71,
+      "reference_diameter": 3.09
+    },
+    {
+      "x_mm": 29,
+      "lumen_area": 9.73,
+      "eem_area": 15.37,
+      "plaque_burden": 45.36,
+      "reference_diameter": 3.01
+    },
+    {
+      "x_mm": 30,
+      "lumen_area": 9.31,
+      "eem_area": 14.82,
+      "plaque_burden": 50.26,
+      "reference_diameter": 2.93
+    },
+    {
+      "x_mm": 31,
+      "lumen_area": 8.94,
+      "eem_area": 14.31,
+      "plaque_burden": 55.25,
+      "reference_diameter": 2.85
+    },
+    {
+      "x_mm": 32,
+      "lumen_area": 8.61,
+      "eem_area": 13.85,
+      "plaque_burden": 60.17,
+      "reference_diameter": 2.77
+    },
+    {
+      "x_mm": 33,
+      "lumen_area": 8.35,
+      "eem_area": 13.45,
+      "plaque_burden": 64.85,
+      "reference_diameter": 2.69
+    },
+    {
+      "x_mm": 34,
+      "lumen_area": 8.15,
+      "eem_area": 13.13,
+      "plaque_burden": 69.16,
+      "reference_diameter": 2.62
+    },
+    {
+      "x_mm": 35,
+      "lumen_area": 8.02,
+      "eem_area": 12.89,
+      "plaque_burden": 73.0,
+      "reference_diameter": 2.55
+    },
+    {
+      "x_mm": 36,
+      "lumen_area": 7.95,
+      "eem_area": 12.73,
+      "plaque_burden": 76.31,
+      "reference_diameter": 2.49
+    },
+    {
+      "x_mm": 37,
+      "lumen_area": 7.94,
+      "eem_area": 12.63,
+      "plaque_burden": 79.04,
+      "reference_diameter": 2.44
+    },
+    {
+      "x_mm": 38,
+      "lumen_area": 7.97,
+      "eem_area": 12.6,
+      "plaque_burden": 81.18,
+      "reference_diameter": 2.4
+    },
+    {
+      "x_mm": 39,
+      "lumen_area": 8.04,
+      "eem_area": 12.62,
+      "plaque_burden": 82.74,
+      "reference_diameter": 2.36
+    },
+    {
+      "x_mm": 40,
+      "lumen_area": 8.13,
+      "eem_area": 12.67,
+      "plaque_burden": 83.73,
+      "reference_diameter": 2.32
+    },
+    {
+      "x_mm": 41,
+      "lumen_area": 8.24,
+      "eem_area": 12.75,
+      "plaque_burden": 84.21,
+      "reference_diameter": 2.3
+    },
+    {
+      "x_mm": 42,
+      "lumen_area": 8.34,
+      "eem_area": 12.84,
+      "plaque_burden": 84.21,
+      "reference_diameter": 2.27
+    },
+    {
+      "x_mm": 43,
+      "lumen_area": 8.44,
+      "eem_area": 12.93,
+      "plaque_burden": 83.8,
+      "reference_diameter": 2.25
+    },
+    {
+      "x_mm": 44,
+      "lumen_area": 8.53,
+      "eem_area": 13.01,
+      "plaque_burden": 83.04,
+      "reference_diameter": 2.24
+    },
+    {
+      "x_mm": 45,
+      "lumen_area": 8.58,
+      "eem_area": 13.08,
+      "plaque_burden": 82.0,
+      "reference_diameter": 2.23
+    },
+    {
+      "x_mm": 46,
+      "lumen_area": 8.62,
+      "eem_area": 13.13,
+      "plaque_burden": 80.74,
+      "reference_diameter": 2.22
+    },
+    {
+      "x_mm": 47,
+      "lumen_area": 8.61,
+      "eem_area": 13.15,
+      "plaque_burden": 79.36,
+      "reference_diameter": 2.22
+    },
+    {
+      "x_mm": 48,
+      "lumen_area": 8.58,
+      "eem_area": 13.14,
+      "plaque_burden": 77.92,
+      "reference_diameter": 2.21
+    },
+    {
+      "x_mm": 49,
+      "lumen_area": 8.51,
+      "eem_area": 13.09,
+      "plaque_burden": 76.49,
+      "reference_diameter": 2.21
+    },
+    {
+      "x_mm": 50,
+      "lumen_area": 8.4,
+      "eem_area": 13.02,
+      "plaque_burden": 75.14,
+      "reference_diameter": 2.22
+    },
+    {
+      "x_mm": 51,
+      "lumen_area": 8.26,
+      "eem_area": 12.91,
+      "plaque_burden": 73.94,
+      "reference_diameter": 2.22
+    },
+    {
+      "x_mm": 52,
+      "lumen_area": 8.09,
+      "eem_area": 12.77,
+      "plaque_burden": 72.93,
+      "reference_diameter": 2.23
+    },
+    {
+      "x_mm": 53,
+      "lumen_area": 7.9,
+      "eem_area": 12.6,
+      "plaque_burden": 72.16,
+      "reference_diameter": 2.24
+    },
+    {
+      "x_mm": 54,
+      "lumen_area": 7.69,
+      "eem_area": 12.41,
+      "plaque_burden": 71.65,
+      "reference_diameter": 2.25
+    },
+    {
+      "x_mm": 55,
+      "lumen_area": 7.46,
+      "eem_area": 12.19,
+      "plaque_burden": 71.42,
+      "reference_diameter": 2.27
+    },
+    {
+      "x_mm": 56,
+      "lumen_area": 7.23,
+      "eem_area": 11.96,
+      "plaque_burden": 71.48,
+      "reference_diameter": 2.29
+    },
+    {
+      "x_mm": 57,
+      "lumen_area": 7.0,
+      "eem_area": 11.72,
+      "plaque_burden": 71.81,
+      "reference_diameter": 2.31
+    },
+    {
+      "x_mm": 58,
+      "lumen_area": 6.78,
+      "eem_area": 11.48,
+      "plaque_burden": 72.38,
+      "reference_diameter": 2.33
+    },
+    {
+      "x_mm": 59,
+      "lumen_area": 6.58,
+      "eem_area": 11.25,
+      "plaque_burden": 73.15,
+      "reference_diameter": 2.35
+    },
+    {
+      "x_mm": 60,
+      "lumen_area": 6.41,
+      "eem_area": 11.04,
+      "plaque_burden": 74.07,
+      "reference_diameter": 2.37
+    },
+    {
+      "x_mm": 61,
+      "lumen_area": 6.27,
+      "eem_area": 10.84,
+      "plaque_burden": 75.06,
+      "reference_diameter": 2.4
+    },
+    {
+      "x_mm": 62,
+      "lumen_area": 6.18,
+      "eem_area": 10.69,
+      "plaque_burden": 76.05,
+      "reference_diameter": 2.43
+    },
+    {
+      "x_mm": 63,
+      "lumen_area": 6.13,
+      "eem_area": 10.58,
+      "plaque_burden": 76.95,
+      "reference_diameter": 2.46
+    },
+    {
+      "x_mm": 64,
+      "lumen_area": 6.15,
+      "eem_area": 10.52,
+      "plaque_burden": 77.67,
+      "reference_diameter": 2.5
+    },
+    {
+      "x_mm": 65,
+      "lumen_area": 6.24,
+      "eem_area": 10.53,
+      "plaque_burden": 78.11,
+      "reference_diameter": 2.54
+    },
+    {
+      "x_mm": 66,
+      "lumen_area": 6.39,
+      "eem_area": 10.63,
+      "plaque_burden": 78.17,
+      "reference_diameter": 2.58
+    },
+    {
+      "x_mm": 67,
+      "lumen_area": 6.63,
+      "eem_area": 10.81,
+      "plaque_burden": 77.78,
+      "reference_diameter": 2.63
+    },
+    {
+      "x_mm": 68,
+      "lumen_area": 6.95,
+      "eem_area": 11.09,
+      "plaque_burden": 76.84,
+      "reference_diameter": 2.68
+    },
+    {
+      "x_mm": 69,
+      "lumen_area": 7.36,
+      "eem_area": 11.47,
+      "plaque_burden": 75.3,
+      "reference_diameter": 2.74
+    },
+    {
+      "x_mm": 70,
+      "lumen_area": 7.84,
+      "eem_area": 11.96,
+      "plaque_burden": 73.13,
+      "reference_diameter": 2.8
+    },
+    {
+      "x_mm": 71,
+      "lumen_area": 8.4,
+      "eem_area": 12.55,
+      "plaque_burden": 70.34,
+      "reference_diameter": 2.87
+    },
+    {
+      "x_mm": 72,
+      "lumen_area": 9.03,
+      "eem_area": 13.24,
+      "plaque_burden": 66.96,
+      "reference_diameter": 2.94
+    },
+    {
+      "x_mm": 73,
+      "lumen_area": 9.7,
+      "eem_area": 14.0,
+      "plaque_burden": 63.08,
+      "reference_diameter": 3.01
+    },
+    {
+      "x_mm": 74,
+      "lumen_area": 10.4,
+      "eem_area": 14.82,
+      "plaque_burden": 58.81,
+      "reference_diameter": 3.08
+    },
+    {
+      "x_mm": 75,
+      "lumen_area": 11.12,
+      "eem_area": 15.68,
+      "plaque_burden": 54.28,
+      "reference_diameter": 3.15
+    },
+    {
+      "x_mm": 76,
+      "lumen_area": 11.82,
+      "eem_area": 16.54,
+      "plaque_burden": 49.66,
+      "reference_diameter": 3.22
+    },
+    {
+      "x_mm": 77,
+      "lumen_area": 12.49,
+      "eem_area": 17.4,
+      "plaque_burden": 45.07,
+      "reference_diameter": 3.28
+    },
+    {
+      "x_mm": 78,
+      "lumen_area": 13.11,
+      "eem_area": 18.22,
+      "plaque_burden": 40.65,
+      "reference_diameter": 3.33
+    },
+    {
+      "x_mm": 79,
+      "lumen_area": 13.68,
+      "eem_area": 19.0,
+      "plaque_burden": 36.51,
+      "reference_diameter": 3.38
+    },
+    {
+      "x_mm": 80,
+      "lumen_area": 14.17,
+      "eem_area": 19.72,
+      "plaque_burden": 32.73,
+      "reference_diameter": 3.42
+    },
+    {
+      "x_mm": 81,
+      "lumen_area": 14.6,
+      "eem_area": 20.38,
+      "plaque_burden": 29.36,
+      "reference_diameter": 3.45
+    },
+    {
+      "x_mm": 82,
+      "lumen_area": 14.94,
+      "eem_area": 20.98,
+      "plaque_burden": 26.45,
+      "reference_diameter": 3.47
+    },
+    {
+      "x_mm": 83,
+      "lumen_area": 15.22,
+      "eem_area": 21.52,
+      "plaque_burden": 24.02,
+      "reference_diameter": 3.49
+    },
+    {
+      "x_mm": 84,
+      "lumen_area": 15.42,
+      "eem_area": 22.01,
+      "plaque_burden": 22.07,
+      "reference_diameter": 3.5
+    },
+    {
+      "x_mm": 85,
+      "lumen_area": 15.55,
+      "eem_area": 22.43,
+      "plaque_burden": 20.61,
+      "reference_diameter": 3.5
+    },
+    {
+      "x_mm": 86,
+      "lumen_area": 15.62,
+      "eem_area": 22.8,
+      "plaque_burden": 19.63,
+      "reference_diameter": 3.5
+    },
+    {
+      "x_mm": 87,
+      "lumen_area": 15.62,
+      "eem_area": 23.11,
+      "plaque_burden": 19.11,
+      "reference_diameter": 3.5
+    },
+    {
+      "x_mm": 88,
+      "lumen_area": 15.57,
+      "eem_area": 23.37,
+      "plaque_burden": 19.02,
+      "reference_diameter": 3.49
+    },
+    {
+      "x_mm": 89,
+      "lumen_area": 15.48,
+      "eem_area": 23.57,
+      "plaque_burden": 19.33,
+      "reference_diameter": 3.48
+    },
+    {
+      "x_mm": 90,
+      "lumen_area": 15.34,
+      "eem_area": 23.72,
+      "plaque_burden": 19.98,
+      "reference_diameter": 3.46
+    },
+    {
+      "x_mm": 91,
+      "lumen_area": 15.17,
+      "eem_area": 23.83,
+      "plaque_burden": 20.93,
+      "reference_diameter": 3.45
+    },
+    {
+      "x_mm": 92,
+      "lumen_area": 14.97,
+      "eem_area": 23.88,
+      "plaque_burden": 22.13,
+      "reference_diameter": 3.43
+    },
+    {
+      "x_mm": 93,
+      "lumen_area": 14.75,
+      "eem_area": 23.88,
+      "plaque_burden": 23.5,
+      "reference_diameter": 3.42
+    },
+    {
+      "x_mm": 94,
+      "lumen_area": 14.51,
+      "eem_area": 23.84,
+      "plaque_burden": 24.97,
+      "reference_diameter": 3.4
+    },
+    {
+      "x_mm": 95,
+      "lumen_area": 14.27,
+      "eem_area": 23.76,
+      "plaque_burden": 26.49,
+      "reference_diameter": 3.38
+    },
+    {
+      "x_mm": 96,
+      "lumen_area": 14.04,
+      "eem_area": 23.63,
+      "plaque_burden": 27.97,
+      "reference_diameter": 3.36
+    },
+    {
+      "x_mm": 97,
+      "lumen_area": 13.81,
+      "eem_area": 23.47,
+      "plaque_burden": 29.36,
+      "reference_diameter": 3.34
+    },
+    {
+      "x_mm": 98,
+      "lumen_area": 13.6,
+      "eem_area": 23.27,
+      "plaque_burden": 30.59,
+      "reference_diameter": 3.32
+    },
+    {
+      "x_mm": 99,
+      "lumen_area": 13.42,
+      "eem_area": 23.05,
+      "plaque_burden": 31.62,
+      "reference_diameter": 3.31
+    },
+    {
+      "x_mm": 100,
+      "lumen_area": 13.26,
+      "eem_area": 22.8,
+      "plaque_burden": 32.39,
+      "reference_diameter": 3.29
+    }
+  ]
+}
