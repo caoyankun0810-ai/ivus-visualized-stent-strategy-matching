@@ -1,0 +1,1356 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f7f9fc;
+  --text: #111827;
+  --muted: #667085;
+  --border: #d7dde8;
+
+  --blue: #1459b8;
+  --purple: #6a3eb5;
+  --orange: #ef5a1f;
+  --green: #218344;
+
+  --panel-radius: 10px;
+  --shadow: 0 8px 24px rgba(20, 34, 65, 0.06);
+
+  /*
+    Stable one-page scale.
+    If the whole page is still slightly too large, change 0.80 to 0.78.
+  */
+  --ui-scale: 0.80;
+}
+
+/* =========================================================
+   Base one-page layout
+   ========================================================= */
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+
+/*
+  Important:
+  Use the full virtual width, then reserve right padding inside app-shell.
+  Do not shrink app-shell width using right-safe-gap, otherwise the right
+  border and bottom border can become misaligned or clipped.
+*/
+.app-shell {
+  width: calc(100vw / var(--ui-scale));
+  height: calc(100vh / var(--ui-scale));
+  min-height: 0;
+  padding: 6px 24px 6px 6px;
+  overflow: hidden;
+
+  transform: scale(var(--ui-scale));
+  transform-origin: top left;
+}
+
+/* =========================================================
+   Top bar
+   ========================================================= */
+
+.topbar {
+  height: 52px;
+  min-height: 52px;
+  display: grid;
+  grid-template-columns: 1fr 1.28fr 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.back-btn {
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  cursor: pointer;
+  color: #0c1733;
+  line-height: 1;
+}
+
+.case-review {
+  font-weight: 800;
+  font-size: 16px;
+  color: #122043;
+  white-space: nowrap;
+}
+
+.topbar-title {
+  font-size: 27px;
+  text-align: center;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #102040;
+  white-space: nowrap;
+}
+
+.topbar-meta {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   Main grid
+   ========================================================= */
+
+.grid {
+  display: grid;
+  grid-template-columns: 26.5% 43.5% 30%;
+  grid-template-rows: minmax(0, 1fr) 245px;
+  gap: 6px;
+  margin-top: 6px;
+
+  height: calc((100vh / var(--ui-scale)) - 64px);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.panel {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  min-height: 0;
+  min-width: 0;
+}
+
+.panel-header {
+  height: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.header-icon {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.panel-blue .panel-header {
+  background: linear-gradient(90deg, #ddecff, #f6fbff);
+  color: var(--blue);
+}
+
+.panel-purple .panel-header {
+  background: linear-gradient(90deg, #f0e8ff, #fbf8ff);
+  color: var(--purple);
+}
+
+.panel-orange .panel-header {
+  background: linear-gradient(90deg, #fff1e9, #fffaf7);
+  color: var(--orange);
+}
+
+.panel-green .panel-header {
+  background: linear-gradient(90deg, #eaf9ec, #f8fff8);
+  color: var(--green);
+}
+
+.panel-body {
+  height: calc(100% - 40px);
+  padding: 8px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Grid positions */
+
+.image-panel {
+  grid-column: 1;
+  grid-row: 1;
+  height: 100%;
+}
+
+.profile-panel {
+  grid-column: 2;
+  grid-row: 1;
+  height: 100%;
+}
+
+.strategy-panel {
+  grid-column: 3;
+  grid-row: 1;
+  height: 100%;
+}
+
+.coverage-panel {
+  grid-column: 1 / 4;
+  grid-row: 2;
+  height: 245px;
+}
+
+/* =========================================================
+   Left panel: IVUS Image Review
+   ========================================================= */
+
+.sub-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 800;
+  color: #1a2a4c;
+  margin: 0 6px 6px;
+  font-size: 13px;
+}
+
+.frame-badge {
+  background: rgba(0, 0, 0, 0.58);
+  color: #fff;
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 12px;
+}
+
+.ivus-main-wrap {
+  background: #050505;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  max-height: 278px;
+  aspect-ratio: 1 / 1;
+}
+
+.ivus-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.contour {
+  fill: none;
+  stroke-width: 5.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.contour-lumen {
+  stroke: #2376e5;
+}
+
+.contour-eem {
+  stroke: #5cae43;
+}
+
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 2px 6px;
+  font-size: 11.5px;
+}
+
+.legend-line {
+  display: inline-block;
+  width: 22px;
+  height: 2px;
+  margin-right: 5px;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+
+.legend-line.lumen {
+  background: #2376e5;
+}
+
+.legend-line.eem {
+  background: #5cae43;
+}
+
+.phenotype {
+  margin-left: auto;
+  background: #eef0f3;
+  padding: 5px 8px;
+  border-radius: 9px;
+  line-height: 1.1;
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.thumbnail-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+}
+
+.thumb-card {
+  text-align: center;
+  font-size: 9.5px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: #101828;
+  min-width: 0;
+}
+
+.thumb-card small {
+  display: block;
+  margin-top: 1px;
+  color: #2e3a54;
+  font-weight: 700;
+  font-size: 8px;
+}
+
+.thumb-ivus {
+  height: 46px;
+  margin-top: 3px;
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at center, #010101 0 13%, #3e3e3e 14% 19%, transparent 20%),
+    radial-gradient(circle at center, transparent 0 26%, #1772dd 27% 29%, transparent 30%),
+    radial-gradient(circle at center, transparent 0 51%, #5cae43 52% 54%, transparent 55%),
+    radial-gradient(circle at center, #2a2a2a, #050505 70%);
+  border: 2px solid #121212;
+}
+
+.thumb-card.active .thumb-ivus {
+  border: 2px solid #186ee5;
+}
+
+.frame-control {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  font-size: 10px;
+}
+
+.frame-control button {
+  border: none;
+  background: transparent;
+  color: var(--blue);
+  font-weight: 900;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.frame-control input {
+  flex: 1;
+  accent-color: var(--blue);
+  min-width: 0;
+}
+
+.position-text {
+  text-align: center;
+  color: #1a4384;
+  font-weight: 700;
+  font-size: 10.5px;
+  margin-top: 0;
+}
+
+/* =========================================================
+   Center panel: Quantitative profile
+   ========================================================= */
+
+.profile-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 170px;
+  gap: 5px;
+  height: calc(100% - 40px);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.profile-chart-wrap {
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/*
+  Do NOT scale this SVG.
+  Scaling caused the left-side labels and High/Moderate/Low labels to be clipped.
+*/
+.profile-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+}
+
+.profile-svg text {
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-weight: 800;
+  fill: #25304c;
+}
+
+.profile-svg .small {
+  font-size: 10px;
+}
+
+.profile-svg .blue {
+  fill: #1459b8;
+}
+
+.profile-svg .orange {
+  fill: #ef5a1f;
+}
+
+.profile-svg .red {
+  fill: #ef2929;
+}
+
+.profile-svg .green {
+  fill: #218344;
+}
+
+.profile-svg .purple {
+  fill: #6a3eb5;
+}
+
+.profile-svg .xlabel {
+  font-size: 18px;
+  fill: #202938;
+}
+
+.gridlines line {
+  stroke: #d5dbe5;
+  stroke-width: 1.4;
+}
+
+.markers .dash {
+  stroke-width: 2;
+  stroke-dasharray: 7 7;
+}
+
+.markers .blue {
+  stroke: #2f7fd8;
+}
+
+.markers .orange {
+  stroke: #ef5a1f;
+}
+
+.markers .red {
+  stroke: #ff2d2d;
+}
+
+.curve {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.curve.thin {
+  stroke-width: 3;
+}
+
+.curve.blue {
+  stroke: #1967c2;
+}
+
+.curve.orange {
+  stroke: #f36b2a;
+}
+
+.curve.purple {
+  stroke: #7b46c9;
+}
+
+.curve.risk {
+  stroke-width: 4;
+}
+
+.marker-labels text {
+  font-size: 11.5px;
+  text-anchor: middle;
+}
+
+.axis-labels text {
+  font-size: 11px;
+}
+
+/* Reduce risk-level labels to avoid overlap */
+.profile-svg text.red.small,
+.profile-svg text.orange.small,
+.profile-svg text.green.small {
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.summary-card {
+  border: 1px solid #d7cde8;
+  border-radius: 9px;
+  align-self: stretch;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.summary-card h3 {
+  margin: 0;
+  padding: 8px 10px;
+  background: #f7f1ff;
+  color: #56309d;
+  font-size: 12.5px;
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 1;
+  min-height: 0;
+  padding: 6px 8px;
+  border-top: 1px solid var(--border);
+}
+
+.metric p {
+  margin: 0;
+  font-size: 10.8px;
+  line-height: 1.32;
+}
+
+.metric b {
+  display: block;
+  font-size: 13.5px;
+}
+
+.metric-icon {
+  width: 27px;
+  height: 27px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 900;
+  font-size: 11.5px;
+}
+
+.blue-dot {
+  background: var(--blue);
+}
+
+.orange-dot {
+  background: var(--orange);
+}
+
+.purple-dot {
+  background: var(--purple);
+}
+
+.green-dot {
+  background: var(--green);
+}
+
+.purple-text {
+  color: var(--purple);
+}
+
+.green-text {
+  color: var(--green);
+}
+
+.orange-text {
+  color: var(--orange);
+}
+
+/* =========================================================
+   Right panel: Recommended Strategy
+   ========================================================= */
+
+.strategy-panel .panel-body {
+  padding: 8px;
+  min-width: 0;
+}
+
+.recommend-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #2aa360;
+  background: #effaf4;
+  border-radius: 8px;
+  padding: 9px 10px;
+  margin-bottom: 7px;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.recommend-card h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.recommend-card p {
+  margin: 0;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.check {
+  width: 28px;
+  height: 28px;
+  background: #1e9c5a;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 900;
+  font-size: 17px;
+  flex: 0 0 auto;
+}
+
+.strategy-panel h4 {
+  margin: 5px 2px;
+  font-size: 13.5px;
+}
+
+.candidate-list {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 7px;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.candidate {
+  display: grid;
+  grid-template-columns: 1.1fr 0.6fr 0.92fr;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 8px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  min-width: 0;
+}
+
+.candidate:last-child {
+  border-bottom: none;
+}
+
+.candidate span {
+  font-weight: 800;
+  font-size: 12.2px;
+  white-space: nowrap;
+}
+
+.candidate small {
+  font-weight: 700;
+  font-size: 9.2px;
+  white-space: nowrap;
+}
+
+.candidate i {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff7900 var(--w), #ffe1cd var(--w));
+  min-width: 0;
+}
+
+.evidence-card,
+.risk-card {
+  border: 1px solid #ffc1a8;
+  border-radius: 9px;
+  padding: 8px 9px;
+  margin-top: 7px;
+  background: #fffaf7;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.evidence-card h3,
+.risk-card h3 {
+  margin: 0 0 4px;
+  color: var(--orange);
+  font-size: 15px;
+}
+
+.evidence-card ul,
+.risk-card ul {
+  margin: 0;
+  padding-left: 15px;
+  line-height: 1.35;
+  font-size: 10.2px;
+}
+
+/* =========================================================
+   Bottom panel: Coverage map
+   ========================================================= */
+
+.coverage-panel .panel-header {
+  height: 38px;
+  min-height: 38px;
+}
+
+.coverage-body {
+  display: grid;
+  grid-template-columns: 58% 27.5% 14.5%;
+  gap: 8px;
+  align-items: center;
+
+  height: calc(100% - 38px);
+  min-height: 0;
+  padding: 8px 12px 8px 10px;
+  overflow: hidden;
+}
+
+.vessel-wrap {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+}
+
+.vessel-svg {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: 190px;
+  transform: translateY(-4px) scale(0.98);
+  transform-origin: center center;
+}
+
+.vessel-svg .dash {
+  stroke-width: 2;
+  stroke-dasharray: 8 7;
+}
+
+.vessel-svg .dash.blue {
+  stroke: #1459b8;
+}
+
+.vessel-svg .dash.orange {
+  stroke: #ef5a1f;
+}
+
+.vessel-svg .map-label {
+  font-size: 13px;
+  font-weight: 900;
+  text-anchor: middle;
+}
+
+.vessel-svg .blue {
+  fill: var(--blue);
+}
+
+.vessel-svg .orange {
+  fill: var(--orange);
+}
+
+.explain-box {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  max-height: 178px;
+  overflow: hidden;
+  padding: 11px 12px;
+  font-size: 11.5px;
+  line-height: 1.38;
+  background: #fff;
+  width: 100%;
+  max-width: 100%;
+}
+
+.interpret-box {
+  border: 1px solid #b7d5b9;
+  border-radius: 9px;
+  max-height: 178px;
+  padding: 7px;
+  overflow: hidden;
+  background: #fff;
+  width: 100%;
+  max-width: 100%;
+  margin-right: 0;
+}
+
+.interpret-box h3 {
+  margin: 0 0 6px;
+  color: var(--green);
+  text-align: center;
+  font-size: 16px;
+}
+
+.interpret-box div {
+  border: 1px solid var(--border);
+  padding: 5px;
+  border-radius: 7px;
+  margin: 4px 0;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.interpret-box span {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  color: #fff;
+  font-size: 11px;
+  flex: 0 0 auto;
+}
+
+/* =========================================================
+   Responsive safeguard:
+   Keep desktop figure layout even when browser reports narrow width.
+   ========================================================= */
+
+@media (max-width: 1280px) {
+  html,
+  body {
+    overflow: hidden;
+  }
+
+  .app-shell {
+    width: calc(100vw / var(--ui-scale));
+    height: calc(100vh / var(--ui-scale));
+    padding: 6px 24px 6px 6px;
+    overflow: hidden;
+  }
+
+  .grid {
+    grid-template-columns: 26.5% 43.5% 30%;
+    grid-template-rows: minmax(0, 1fr) 245px;
+    height: calc((100vh / var(--ui-scale)) - 64px);
+    overflow: hidden;
+  }
+
+  .image-panel {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .profile-panel {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .strategy-panel {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .coverage-panel {
+    grid-column: 1 / 4;
+    grid-row: 2;
+  }
+
+  .profile-body {
+    grid-template-columns: minmax(0, 1fr) 170px;
+  }
+
+  .coverage-body {
+    grid-template-columns: 58% 27.5% 14.5%;
+  }
+}
+
+/* =========================================================
+   FIX actual right clipping:
+   percentage columns + gap caused overflow.
+   Use fr units instead of % columns.
+   Put this block at the very end of styles.css.
+   ========================================================= */
+
+/* Main three-column layout:
+   fr units automatically subtract gap from available width */
+.grid {
+  grid-template-columns: minmax(0, 26.5fr) minmax(0, 43.5fr) minmax(0, 30fr) !important;
+  gap: 6px !important;
+  overflow: hidden !important;
+}
+
+/* Ensure each first-row panel can shrink inside its grid cell */
+.image-panel,
+.profile-panel,
+.strategy-panel {
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Recommended Strategy internal content should not push the panel wider */
+.strategy-panel,
+.strategy-panel .panel-body,
+.recommend-card,
+.candidate-list,
+.evidence-card,
+.risk-card {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Bottom coverage layout:
+   use fr units instead of percentages to avoid 100% + gap overflow */
+.coverage-body {
+  grid-template-columns: minmax(0, 58fr) minmax(0, 27.5fr) minmax(0, 14.5fr) !important;
+  gap: 8px !important;
+  padding-right: 10px !important;
+  overflow: hidden !important;
+}
+
+/* Ensure bottom right box stays inside the panel */
+.vessel-wrap,
+.explain-box,
+.interpret-box {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Keep top and bottom right edges aligned */
+.strategy-panel {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+}
+
+.coverage-panel {
+  grid-column: 1 / 4 !important;
+  grid-row: 2 !important;
+}
+
+/* Sync media rule */
+@media (max-width: 1280px) {
+  .grid {
+    grid-template-columns: minmax(0, 26.5fr) minmax(0, 43.5fr) minmax(0, 30fr) !important;
+  }
+
+  .coverage-body {
+    grid-template-columns: minmax(0, 58fr) minmax(0, 27.5fr) minmax(0, 14.5fr) !important;
+  }
+}
+
+.profile-svg .risk-level-label {
+  text-anchor: start !important;
+  font-size: 8px !important;
+  font-weight: 700 !important;
+}
+
+/* =========================================================
+   IVUS folder loading and image display
+   ========================================================= */
+
+.folder-load-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid #b8c7df;
+  background: #f3f7ff;
+  color: #1459b8;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.folder-load-btn:hover {
+  background: #e8f1ff;
+}
+
+.ivus-main-wrap {
+  position: relative;
+  background: #050505;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  max-height: 278px;
+  aspect-ratio: 1 / 1;
+}
+
+.ivus-frame-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  display: block;
+}
+
+.ivus-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.thumb-ivus {
+  position: relative;
+  height: 46px;
+  margin-top: 3px;
+  border-radius: 6px;
+  background: #000;
+  border: 2px solid #121212;
+  overflow: hidden;
+}
+
+.thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+.thumb-card.active .thumb-ivus {
+  border: 2px solid #186ee5;
+}
+
+/* =========================================================
+   Segmentation button style
+   Add to the end of styles.css
+   ========================================================= */
+
+.segmentation-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid #c8b2e8;
+  background: #f5efff;
+  color: #6a3eb5;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.segmentation-btn:hover {
+  background: #eee2ff;
+}
+
+.segmentation-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+.ivus-overlay .contour {
+  fill: none;
+  stroke-width: 5.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ivus-overlay .contour-eem {
+  stroke: #5cae43;
+}
+
+.ivus-overlay .contour-lumen {
+  stroke: #2376e5;
+}
+
+.segment-all-btn {
+  background: #eef9f0;
+  border-color: #9dccab;
+  color: #218344;
+}
+
+.segment-all-btn:hover {
+  background: #e4f5e8;
+}
+
+.segment-all-btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+/* =========================================================
+   Compact IVUS top control row
+   ========================================================= */
+
+.sub-title-row {
+  display: grid !important;
+  grid-template-columns: auto 1fr !important;
+  align-items: center !important;
+  column-gap: 10px !important;
+  margin: 0 6px 6px !important;
+}
+
+.current-frame-title {
+  font-weight: 900;
+  color: #1a2a4c;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.current-frame-title b {
+  color: #1459b8;
+}
+
+#currentFrameTotal {
+  color: #667085;
+  font-weight: 800;
+}
+
+.ivus-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+}
+
+/* 不再使用右侧灰色 frame badge */
+.frame-badge {
+  display: none !important;
+}
+
+/* 按钮再压缩一点，避免 Segmenting xx% 时撑开 */
+.folder-load-btn,
+.segmentation-btn {
+  padding: 3px 8px !important;
+  font-size: 10.5px !important;
+  line-height: 1.1 !important;
+}
+
+/* Segment all 按钮在运行时文字较长，给它允许显示 */
+.segment-all-btn {
+  min-width: 86px;
+}
+
+/* =========================================================
+   Force IVUS top control row into one line
+   ========================================================= */
+
+.sub-title-row {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 6px !important;
+  margin: 0 6px 6px !important;
+  flex-wrap: nowrap !important;
+}
+
+.current-frame-title,
+.sub-title-row > span:first-child {
+  flex: 0 0 auto !important;
+  font-weight: 900 !important;
+  color: #1a2a4c !important;
+  font-size: 13px !important;
+  white-space: nowrap !important;
+}
+
+.ivus-action-row {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 5px !important;
+  min-width: 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+/* 防止按钮变成一整行 */
+.folder-load-btn,
+.segmentation-btn,
+.segment-all-btn {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: auto !important;
+  max-width: none !important;
+  padding: 3px 8px !important;
+  font-size: 10.5px !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+}
+
+/* Segment all 在运行时显示 Segmenting 4%，稍微给一点宽度 */
+.segment-all-btn {
+  min-width: 78px !important;
+}
+
+/* 右侧旧的 Frame badge 不显示 */
+.frame-badge {
+  display: none !important;
+}
+
+/* =========================================================
+   Recommended Strategy readability tuning
+   ========================================================= */
+
+.evidence-card h3,
+.risk-card h3 {
+  font-size: 17px !important;
+}
+
+.evidence-card ul,
+.risk-card ul {
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+  padding-left: 20px !important;
+}
+
+.evidence-card li,
+.risk-card li {
+  margin-bottom: 3px !important;
+}
+
+/* =========================================================
+   Recommended Strategy generate button
+   ========================================================= */
+
+.strategy-header {
+  justify-content: space-between !important;
+}
+
+.strategy-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.generate-strategy-btn {
+  border: 1px solid #efb18d;
+  background: #fff4ee;
+  color: #df5b22;
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 10.5px;
+  font-weight: 850;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.generate-strategy-btn:hover {
+  background: #ffe9dd;
+}
+
+.generate-strategy-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.small-action-btn {
+  margin-left: auto;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid #d8c7ff;
+  background: #f7f1ff;
+  color: #6d35b8;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.small-action-btn:hover {
+  background: #eee1ff;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-svg .curve.blue {
+  stroke: #2f67c2;
+  stroke-width: 4.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.profile-svg .curve.blue.thin {
+  stroke: #2f67c2;
+  stroke-width: 4;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.profile-svg .curve.orange {
+  stroke: #e66a2c;
+  stroke-width: 4.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.profile-svg .curve.purple.risk {
+  stroke: #6d4ac7;
+  stroke-width: 8;
+  fill: none;
+}
+
+.profile-svg .gridlines line {
+  stroke: #d8dee9;
+  stroke-width: 1.4;
+}
+
+.profile-svg .dash {
+  stroke-width: 2;
+  stroke-dasharray: 7 7;
+}
+
+.profile-svg .dash.blue {
+  stroke: #2f67c2;
+}
+
+.profile-svg .dash.orange {
+  stroke: #ea6a2a;
+}
+
+.profile-svg .dash.red {
+  stroke: #ef3b2d;
+}
+
+.profile-svg text {
+  font-weight: 700;
+}
+
+/* v2: make the coverage explanation readable */
+#coverageExplanation {
+  font-size: 14px;
+  line-height: 1.7;
+  font-weight: 500;
+}
+#coverageExplanation b {
+  font-size: 19px;
+  font-weight: 800;
+}
