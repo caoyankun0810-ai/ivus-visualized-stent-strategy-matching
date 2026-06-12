@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Model weights
+*.pth
+*.pt
+*.ckpt
+*.onnx
+
+# Private or large data
+data/
+raw_data/
+patient_data/
+private_data/
+*.dcm
+*.avi
+*.mp4
+
+# Local outputs
+outputs/
+runs/
+logs/
+*.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
